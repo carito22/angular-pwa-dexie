@@ -1,0 +1,13 @@
+* {
+    touch-action: pan-y !important;
+}
+
+.table-content {
+    width: 450px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+td {
+    width: 100px;
+}

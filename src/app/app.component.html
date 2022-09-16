@@ -1,0 +1,39 @@
+<div class="container">
+    <h3>Listado</h3>
+    <h5>Status Internet: {{status}}</h5>
+
+    <button type="button" class="btn btn-sm btn-primary" [disabled]="!status" (click)="syncAll()">Sincronizar
+        datos</button>
+
+    <div class="table-content">
+        <table class="table table-borded table-responsive table-striped " id="table-list">
+            <thead class="table-dark">
+                <tr>
+                    <td>ID</td>
+                    <td>title</td>
+                    <td>Opc</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{item.id}}</td>
+                    <td *ngIf="item.completed">{{item.title}} <em style="opacity:.5"
+                            *ngIf="item.subtitle">{{item.subtitle}}</em>
+                    </td>
+                    <td *ngIf="!item.completed"><input type="text" class="form-control" [(ngModel)]="item.title"></td>
+                    <td>
+                        <button class="btn btn-xs btn-success" *ngIf="item.completed"
+                            (click)="item.completed = !item.completed"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-xs btn-info" *ngIf="!item.completed" (click)="postSync(item)"><i
+                                class="fa fa-check" aria-hidden="true"></i></button>
+                        <button class="btn btn-xs btn-danger" *ngIf="!item.completed" (click)="dejarDeEditar(item)"><i
+                                class="fa fa-trash" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<hr>
