@@ -77,18 +77,21 @@ export class AppComponent {
   syncAll() {
     //Traer guardados localmente
     let listadoGuardadoLocal = this.list.filter(item => item.subtitle && item.subtitle === 'Guardado en Local...');
-
-    listadoGuardadoLocal.forEach(element => {
-      db.items.get(element.id)
-        .then(
-          response => {
-            this.postSync(response);
-          },
-          error => {
-            this.toastr.error("No se encontró item en BD local")
-          }
-        )
-    });
+    if (listadoGuardadoLocal.length > 0) {
+      listadoGuardadoLocal.forEach(element => {
+        db.items.get(element.id)
+          .then(
+            response => {
+              this.postSync(response);
+            },
+            error => {
+              this.toastr.error("No se encontró item en BD local")
+            }
+          )
+      });
+    } else {
+      this.toastr.error("No hay información que sincronizar")
+    }
   }
 
   async addNewItem(item: any) {
